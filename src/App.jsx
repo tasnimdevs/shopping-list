@@ -1,29 +1,49 @@
 import { useEffect, useState } from "react"
-import { TodoForm } from "./TodoForm"
-import "./index.css"
-import { TodoList } from "./TodoList"
-import { TotalPrice } from "./TotalPrice"
+import "./index.css";
 
 export default function App() {
   const [todos, setTodos] = useState(() => {
-    const localValue = localStorage.getItem("ITEMS")
+    const localValue = localStorage.getItem("categories")
     if (localValue == null) return []
 
     return JSON.parse(localValue)
   })
 
-  useEffect(() => {
-    localStorage.setItem("ITEMS", JSON.stringify(todos))
-  }, [todos])
+  const [category, setCategory] = useState("")
+  const [categories, setCategories] = useState(() => {
+    const localValue = localStorage.getItem("categories")
+    if (localValue == null) return []
 
-  function addTodo(title, price) {
-    setTodos(currentTodos => {
-      return [
-        ...currentTodos,
-        { id: crypto.randomUUID(), title, completed: false, price: parseInt(price) },
-      ]
-    })
+    return JSON.parse(localValue)
+  })
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(category);
+
+    if (category === "") return;
+
+    addCategory(category);
+    setCategory("");
+
   }
+
+
+  useEffect(() => {
+    localStorage.setItem("categories", JSON.stringify(categories))
+  }, [categories])
+
+   
+
+
+    function addCategory(title) {
+      setCategories(categories => {
+        return [
+          ...categories,
+          { id: crypto.randomUUID(), name: title, active: true },
+        ]
+      })
+    }
 
   function toggleTodo(id, completed) {
     setTodos(currentTodos => {
@@ -47,10 +67,36 @@ export default function App() {
     <>
       <div className="w-1/2 m-auto h-screen flex items-center">
         <div className="p-5 border w-full">
-          <TodoForm afterSubmit={addTodo} />
+          <h1 className="text-center text-lg font-bold mb-5">Category</h1>
+          <form onSubmit={handleSubmit} >
+
+            <div className="flex gap-1 mb-5">
+              <input
+                value={category}
+                onChange={e => setCategory(e.target.value)}
+                type="text"
+                id="cat-name"
+                className="border-2 grow "
+              />
+              <button className="px-4 py-2 font-semibold text-sm bg-sky-500 text-white rounded-none shadow-sm cursor-pointer hover:bg-sky-700">+ Add</button>
+            </div>
+          </form>
+
+          <ul className="flex justify-between gap-3">
+            {categories.map(todo => {
+              return (
+                <li className="border text-center cursor-pointer p-3 grow"
+                  key={todo.id}
+                >{todo.name}</li>
+              )
+            })}
+          </ul>
+
+          
+          {/* <TodoForm afterSubmit={addTodo} />
           <h1 className="mt-2 font-bold">Shopping List</h1>
           <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
-          <TotalPrice todos={todos} />
+          <TotalPrice todos={todos} /> */}
         </div>
       </div>
     </>
