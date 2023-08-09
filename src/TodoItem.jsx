@@ -10,7 +10,6 @@ export function TodoItem({ completed, id, title, price, toggleTodo, deleteTodo }
           <div> {price}</div>
         </div>
       </div>
-
     </li>
   )
 }

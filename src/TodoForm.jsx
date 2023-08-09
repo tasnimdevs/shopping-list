@@ -5,13 +5,13 @@ export function TodoForm({ afterSubmit }) {
   const [price, setPrice] = useState("")
 
   function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     console.log(title, price);
     if (title === "" || price === "") return;
 
     afterSubmit(title, price);
-    setTitle("")
-    setPrice("")
+    setTitle("");
+    setPrice("");
   }
 
   return (
@@ -32,7 +32,6 @@ export function TodoForm({ afterSubmit }) {
         />
         <button className="px-4 py-2 font-semibold text-sm bg-sky-500 text-white rounded-none shadow-sm cursor-pointer hover:bg-sky-700">+ Add</button>
       </div>
-
     </form>
 
   )
