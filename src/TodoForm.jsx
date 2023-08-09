@@ -6,7 +6,7 @@ export function TodoForm({ afterSubmit }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(title, price);
+
     if (title === "" || price === "") return;
 
     afterSubmit(title, price);
