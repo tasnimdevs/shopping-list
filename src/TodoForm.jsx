@@ -1,31 +1,32 @@
 import { useState } from "react"
 
-export function TodoForm({ onSubmit }) {
-  const [newItem, setNewItem] = useState("")
-  const [newPrice, setNewPrice] = useState("")
+export function TodoForm({ afterSubmit }) {
+  const [title, setTitle] = useState("")
+  const [price, setPrice] = useState("")
 
   function handleSubmit(e) {
     e.preventDefault()
-    if (newItem === "") return
+    console.log(title, price);
+    if (title === "" || price === "") return;
 
-    onSubmit(newItem, newPrice)
-    setNewItem("")
-    setNewPrice("")
+    afterSubmit(title, price);
+    setTitle("")
+    setPrice("")
   }
 
   return (
     <form onSubmit={handleSubmit} className="">
       <div className="flex gap-1 ">
         <input
-          value={newItem}
-          onChange={e => setNewItem(e.target.value)}
+          value={title}
+          onChange={e => setTitle(e.target.value)}
           type="text"
           id="item"
           className="border-2 grow "
         />
         <input
-          value={newPrice}
-          onChange={e => setNewPrice(e.target.value)}
+          value={price}
+          onChange={e => setPrice(e.target.value)}
           type="number"
           className="border-2"
         />

@@ -47,7 +47,7 @@ export default function App() {
     <>
       <div className="w-1/2 m-auto h-screen flex items-center">
         <div className="p-5 border w-full">
-          <TodoForm onSubmit={addTodo} />
+          <TodoForm afterSubmit={addTodo} />
           <h1 className="mt-2 font-bold">Shopping List</h1>
           <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
           <TotalPrice todos={todos} />
