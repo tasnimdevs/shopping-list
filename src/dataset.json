@@ -1,0 +1,84 @@
+[
+    {
+        "cat_id": 1,
+        "cat_name": "Ammu",
+        "cat_income": [
+            {
+                "id": "5ce85f39-0ce1-4bf5-b373-eb41774fab08",
+                "title": "For Grocery",
+                "completed": false,
+                "price": 1000
+            },
+            {
+                "id": "da2da6c8-a148-44ad-b645-e678cd577459",
+                "title": "Purchase Fish",
+                "completed": false,
+                "price": 500
+            }
+        ],
+        "cat_expense": [
+            {
+                "id": "5ce85f39-0ce1-4bf5-b373-eb41774fab08",
+                "title": "Atta",
+                "completed": false,
+                "price": 80
+            },
+            {
+                "id": "5ce85f39-0ce1-4bf5-b373-eb41774fab08",
+                "title": "Garlic",
+                "completed": false,
+                "price": 200
+            },
+            {
+                "id": "da2da6c8-a148-44ad-b645-e678cd577459",
+                "title": "Fish",
+                "completed": false,
+                "price": 600
+            }
+        ]
+    },
+    {
+        "cat_id": 2,
+        "cat_name": "Personal",
+        "cat_income": [
+            {
+                "id": "5ce85f39-0ce1-4bf5-b373-eb41774fab08",
+                "title": "Salary",
+                "completed": true,
+                "price": 3000
+            },
+            {
+                "id": "da2da6c8-a148-44ad-b645-e678cd577459",
+                "title": "Tution",
+                "completed": false,
+                "price": 2000
+            }
+        ],
+        "cat_expense": [
+            {
+                "id": "5ce85f39-0ce1-4bf5-b373-eb41774fab08",
+                "title": "Rickshaw",
+                "completed": false,
+                "price": 50
+            },
+            {
+                "id": "da2da6c8-a148-44ad-b645-e678cd577459",
+                "title": "Evening Snacks",
+                "completed": false,
+                "price": 80
+            },
+            {
+                "id": "da2da6c8-a148-44ad-b645-e678cd577459",
+                "title": "Gift for Mahdia",
+                "completed": false,
+                "price": 100
+            },
+            {
+                "id": "da2da6c8-a148-44ad-b645-e678cd577459",
+                "title": "Load to Rasul",
+                "completed": false,
+                "price": 1000
+            }
+        ]
+    }
+]
