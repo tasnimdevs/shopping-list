@@ -9,8 +9,6 @@ export function TodoForm({ onSubmit }) {
     if (newItem === "") return
 
     onSubmit(newItem, newPrice)
-    /*    onSubmit([newItem, newPrice, "Taka"].join(" "))
-     */
     setNewItem("")
     setNewPrice("")
   }
