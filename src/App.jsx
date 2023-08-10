@@ -91,12 +91,6 @@ export default function App() {
               )
             })}
           </ul>
-
-          
-          {/* <TodoForm afterSubmit={addTodo} />
-          <h1 className="mt-2 font-bold">Shopping List</h1>
-          <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
-          <TotalPrice todos={todos} /> */}
         </div>
       </div>
     </>
