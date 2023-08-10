@@ -42,7 +42,7 @@ export default function Categories() {
       return [
         ...categories,
         { id: crypto.randomUUID(), name: title, cat_income: [{
-          "id": "5ce85f39-0ce1-4bf5-b373-eb41774fab08",
+          "id": "5ce85f39-0ce1-4bf5-b373-eb41734fab08",
           "title": "For Grocery",
           "completed": false,
           "price": 1000
@@ -59,13 +59,13 @@ export default function Categories() {
         "price": 80
     },
     {
-        "id": "5ce85f39-0ce1-4bf5-b373-eb41774fab08",
+        "id": "5ce85f39-0ce1-4bf5-b373-eb41884fab08",
         "title": "Garlic",
         "completed": false,
         "price": 200
     },
     {
-        "id": "da2da6c8-a148-44ad-b645-e678cd577459",
+        "id": "da2da6c8-a148-44ad-b645-e673cd577459",
         "title": "Fish",
         "completed": false,
         "price": 600
