@@ -17,7 +17,6 @@ export default function Categories() {
 
     return JSON.parse(localValue)
   })
-
   function handleSubmit(e) {
     e.preventDefault();
     console.log(category);
