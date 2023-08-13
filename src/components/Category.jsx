@@ -4,12 +4,12 @@ import { useParams } from 'react-router-dom';
 export default function Category() {
     const { categoryId } = useParams();
 
-
     const [insertType, setInsertType] = useState('');
     const [catExpense, setCatExpense] = useState([]);
     const [catIncome, setCatIncome] = useState([]);
     const categories = localStorage.getItem('categories');
     const inputClasses = 'mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block sm:text-sm focus:ring-1';
+    const income_expense_form = document.getElementById('income_expense_form');
 
     useEffect(() => {
         const getCatExpenseAndIncome = async () => {
@@ -36,11 +36,23 @@ export default function Category() {
         console.log(insertType);
     }, [insertType]);
 
-    function handleClick(type) {
-        let income_expense_form = document.getElementById('income_expense_form');
-        income_expense_form.classList.toggle('hidden')
-        console.log(income_expense_form);
-        setInsertType(type)
+
+    income_expense_form && income_expense_form.addEventListener('click', (e) => {
+        e.stopPropagation()
+    })
+
+    document.addEventListener('click', () => {
+        income_expense_form && !income_expense_form.classList.contains("hidden") && income_expense_form.classList.add('hidden');
+    })
+
+
+    function handleClick(event, type) {
+        setInsertType(type);
+        income_expense_form.classList.toggle('hidden');
+
+
+        console.log(type === 'income' ? catIncome : catExpense);
+        event.stopPropagation();
     }
 
 
@@ -59,7 +71,7 @@ export default function Category() {
                     <div className='border p-5 grow'>
                         <div className='flex '>
                             <h3 className='text-sm font-semibold border text-center '>Income  </h3>
-                            <button onClick={() => handleClick('income')}>+</button>
+                            <button onClick={() => handleClick(event, 'income')}>+</button>
 
                         </div>
                         {catIncome.map((income) => (
@@ -73,7 +85,7 @@ export default function Category() {
                     <div className='border p-5 grow'>
                         <div className='flex'>
                             <h3 className='text-sm font-semibold border text-center'>Expense  </h3>
-                            <button onClick={() => handleClick('expence')}>+</button>
+                            <button onClick={() => handleClick(event, 'expence')}>+</button>
 
                         </div>
                         {catExpense.map((expense) => (
@@ -85,8 +97,6 @@ export default function Category() {
                         ))}
                     </div>
                 </div>
-
-
             </div>
         </div>
     );
