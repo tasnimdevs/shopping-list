@@ -19,7 +19,7 @@ export default function Categories() {
   })
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(category);
+    // console.log(category);
 
     if (category === "") return;
 
@@ -40,35 +40,9 @@ export default function Categories() {
     setCategories(categories => {
       return [
         ...categories,
-        { id: crypto.randomUUID(), name: title, cat_income: [{
-          "id": "5ce85f39-0ce1-4bf5-b373-eb41734fab08",
-          "title": "For Grocery",
-          "completed": false,
-          "price": 1000
-      },
-      {
-          "id": "da2da6c8-a148-44ad-b645-e678cd577459",
-          "title": "Purchase Fish",
-          "completed": false,
-          "price": 500
-      }], cat_expense: [{
-        "id": "5ce85f39-0ce1-4bf5-b373-eb41774fab08",
-        "title": "Atta",
-        "completed": false,
-        "price": 80
-    },
-    {
-        "id": "5ce85f39-0ce1-4bf5-b373-eb41884fab08",
-        "title": "Garlic",
-        "completed": false,
-        "price": 200
-    },
-    {
-        "id": "da2da6c8-a148-44ad-b645-e673cd577459",
-        "title": "Fish",
-        "completed": false,
-        "price": 600
-    }], active: true },
+        {
+          id: crypto.randomUUID(), name: title, cat_income: [], cat_expense: [], active: true
+        },
       ]
     })
   }
@@ -100,6 +74,7 @@ export default function Categories() {
                 type="text"
                 id="cat-name"
                 className="border-2 grow "
+                placeholder="Type a Category"
               />
               <button className="px-4 py-2 font-semibold text-sm bg-sky-500 text-white rounded-none shadow-sm cursor-pointer hover:bg-sky-700">+ Add</button>
             </div>

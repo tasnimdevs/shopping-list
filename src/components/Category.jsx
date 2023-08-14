@@ -9,6 +9,7 @@ export default function Category() {
 
 
     const [insertType, setInsertType] = useState('');
+    console.log(insertType);
     const [catExpense, setCatExpense] = useState([]);
     const [catIncome, setCatIncome] = useState([]);
     const [trTitle, setTrTitle] = useState('');
@@ -29,53 +30,73 @@ export default function Category() {
                     catIncomeArr = category.cat_income;
                 }
             });
-
             setCatExpense(catExpenseArr);
             setCatIncome(catIncomeArr);
-
         };
-
         getCatExpenseAndIncome();
 
     }, [categoryId]);
 
 
 
-    function handleIncome(e) {
+    function handleInc_ExpForm(e, insertType) {
         e.preventDefault();
 
+        // console.log(insertType);
+
         if (trTitle === "" || trAmount === "") return;
-        const newIncomeEntry = {
+
+
+        const newEntry = {
             id: crypto.randomUUID(),
             title: trTitle,
             price: trAmount,
-            completed: false,
+            completed: false
         };
 
-        setCatIncome([...thisCategory.cat_income, newIncomeEntry]);
+        if (insertType === 'cat_income') {
+            const newIncomeEntry = { ...newEntry };
+            console.log(newIncomeEntry);
+            setCatIncome([...thisCategory.cat_income, newIncomeEntry]);
 
-        let tempCats = categories;
-        tempCats.forEach(category => {
-            if (categoryId === category.id) {
-                category.cat_income = [...thisCategory.cat_income, newIncomeEntry];
-            }
-        })
+            const tempCats = categories.map(category => {
+                if (categoryId === category.id) {
+                    return {
+                        ...category,
+                        cat_income: [...category.cat_income, newIncomeEntry]
+                    };
+                }
+                return category;
+            });
+            setCategories(tempCats);
+        } else {
+            const newExpenseEntry = { ...newEntry };
 
-        setCategories(tempCats);
+            console.log(newExpenseEntry);
 
+            setCatExpense([...thisCategory.cat_expense, newExpenseEntry]);
 
-
+            const tempCats = categories.map(category => {
+                if (categoryId === category.id) {
+                    return {
+                        ...category,
+                        cat_expense: [...category.cat_expense, newExpenseEntry]
+                    };
+                }
+                return category;
+            });
+            setCategories(tempCats);
+        }
+        // console.log(thisCategory.cat_income);
         setTrTitle("");
         setTrAmount("");
-
-
         income_expense_form.classList.add('hidden');
-
     }
 
+    
 
     useEffect(() => {
-        console.log(thisCategory, categories);
+        // console.log(thisCategory, categories);
         localStorage.setItem("categories", JSON.stringify(categories))
     }, [catIncome, categories]);
 
@@ -88,13 +109,10 @@ export default function Category() {
         income_expense_form && !income_expense_form.classList.contains("hidden") && income_expense_form.classList.add('hidden');
     })
 
-
     function handleClick(event, type) {
         setInsertType(type);
         income_expense_form.classList.toggle('hidden');
-
-
-        console.log(type === 'income' ? catIncome : catExpense);
+        // console.log(type === 'income' ? catIncome : catExpense);
         event.stopPropagation();
     }
 
@@ -109,23 +127,33 @@ export default function Category() {
                 </div>
                 <div className='flex gap-3 relative'>
                     <div id='income_expense_form' className='absolute bg-gray-50 w-full h-full justify-center items-center shadow-md border-2 hidden border-sky-500'>
-                        <form action="" className='flex gap-2 p-3 w-full' onSubmit={handleIncome}  >
+                        <form action=""
+                            className='flex gap-2 p-3 w-full' onSubmit={e => handleInc_ExpForm(e, insertType)} >
                             <input
                                 value={trTitle}
                                 onChange={e => setTrTitle(e.target.value)}
-                                className={inputClasses + ` grow`}
+                                className={`${inputClasses} grow`}
                                 type="text"
                                 placeholder='Type your title' />
                             <input
                                 value={trAmount}
                                 onChange={e => setTrAmount(e.target.value)}
                                 className={inputClasses} type="number" placeholder='Type your amount' />
-                            <button className='px-4 py-2 font-semibold text-sm bg-sky-500 text-white rounded-none shadow-sm'>+Add <span>Income</span></button>
+                            <button type="submit"
+                                className="px-4 py-2 font-semibold text-sm bg-sky-500 hover:bg-sky-700 text-white rounded-none shadow-sm" >
+                                <span>+Add </span>
+                                <span>{insertType === 'cat_income' ? 'Income' : 'Expense'}</span>
+                            </button>
                         </form>
                     </div>
+
                     <div className='border p-5 grow'>
                         <div className='flex '>
-                            <h3 className='text-sm font-semibold border text-center '>                             <button onClick={() => handleClick(event, 'income')} className='p-1 font-semibold text-sm bg-green-500 text-white rounded-none shadow-sm'>+Income </button>
+                            <h3 className='text-sm font-semibold border text-center '>                              <button
+                                onClick={(event) => { handleClick(event, 'income'); setInsertType('cat_income'); }}
+                                className="p-1 font-semibold text-sm bg-green-500 hover:bg-green-700 text-white rounded-none shadow-sm" >
+                                +Income
+                            </button>
                             </h3>
 
                         </div>
@@ -139,7 +167,13 @@ export default function Category() {
                     </div>
                     <div className='border p-5 grow'>
                         <div className='flex'>
-                            <h3 className='text-sm font-semibold border text-center'> <button onClick={() => handleClick(event, 'expence')} className='p-1 font-semibold text-sm bg-red-500 text-white rounded-none shadow-sm'> - Expense</button>  </h3>
+                            <h3 className='text-sm font-semibold border text-center'>
+                                <button
+                                    onClick={(event) => { handleClick(event, 'expence'); setInsertType('cat_expense'); }}
+                                    className='p-1 font-semibold text-sm bg-red-500 hover:bg-red-700 text-white rounded-none shadow-sm'>
+                                    - Expense
+                                </button>
+                            </h3>
 
 
                         </div>
