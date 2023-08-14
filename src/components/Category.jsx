@@ -9,7 +9,7 @@ export default function Category() {
 
 
     const [insertType, setInsertType] = useState('');
-    console.log(insertType);
+    // console.log(insertType);
     const [catExpense, setCatExpense] = useState([]);
     const [catIncome, setCatIncome] = useState([]);
     const [trTitle, setTrTitle] = useState('');
@@ -93,7 +93,7 @@ export default function Category() {
         income_expense_form.classList.add('hidden');
     }
 
-    
+
 
     useEffect(() => {
         // console.log(thisCategory, categories);

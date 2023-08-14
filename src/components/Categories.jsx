@@ -83,7 +83,7 @@ export default function Categories() {
           <div className="flex justify-between gap-3">
             {categories.map(category => {
               return (
-                <Link key={category.id} className="border text-center cursor-pointer p-3 grow" to={`/category/${category.id}`}>{category.name}</Link>
+                <Link key={category.id} className="border text-center cursor-pointer p-3 grow" to={`/cat/${category.id}`}>{category.name}</Link>
               )
             })}
           </div>
