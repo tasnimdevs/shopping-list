@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom';
 
 export default function Category() {
-    const allCates = localStorage.getItem('categories');
-    const [categories, setcategories] = useState(allCates);
+    const [categories, setCategories] = useState(JSON.parse(localStorage.getItem('categories')));
     const { categoryId } = useParams();
-    const thisCategory = JSON.parse(categories).find((item, index) => {
-        return item.id === categoryId;
-    });
+
+    const [thisCategory, setThisCategory] = useState(categories && categories.find(item => item.id === categoryId));
 
 
     const [insertType, setInsertType] = useState('');
@@ -17,14 +15,14 @@ export default function Category() {
     const [trAmount, setTrAmount] = useState('');
     const inputClasses = 'mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block sm:text-sm focus:ring-1';
     const income_expense_form = document.getElementById('income_expense_form');
-    /*          console.log(trTitle);
-     */
+
+
     useEffect(() => {
         const getCatExpenseAndIncome = async () => {
             let catExpenseArr = [];
             let catIncomeArr = [];
 
-            JSON.parse(categories).forEach((category) => {
+            categories && categories.forEach((category) => {
 
                 if (category.id === categoryId) {
                     catExpenseArr = category.cat_expense;
@@ -54,12 +52,16 @@ export default function Category() {
             completed: false,
         };
 
-        // const updatedIncomes = [...thisCategory.cat_income, newIncomeEntry];
-        thisCategory.cat_income.push(newIncomeEntry)
-        setcategories(categories);
-        console.log(JSON.parse(categories));
+        setCatIncome([...thisCategory.cat_income, newIncomeEntry]);
 
+        let tempCats = categories;
+        tempCats.forEach(category => {
+            if (categoryId === category.id) {
+                category.cat_income = [...thisCategory.cat_income, newIncomeEntry];
+            }
+        })
 
+        setCategories(tempCats);
 
 
 
@@ -73,7 +75,9 @@ export default function Category() {
 
 
     useEffect(() => {
-    }, [catIncome]);
+        console.log(thisCategory, categories);
+        localStorage.setItem("categories", JSON.stringify(categories))
+    }, [catIncome, categories]);
 
 
     income_expense_form && income_expense_form.addEventListener('click', (e) => {
@@ -99,7 +103,10 @@ export default function Category() {
     return (
         <div className="w-1/2 m-auto h-screen flex items-center">
             <div className="p-5 border w-full">
-                <h1 className="text-center text-lg font-bold mb-5"><Link to="/categories">Categories</Link></h1>
+                <div className='flex justify-between items-center'>
+                    <Link to="/categories" className='border px-3 py-1 bg-gray-100 hover:bg-gray-200'>Categories</Link>
+                    <h1 className="text-center text-lg font-bold mb-5">{thisCategory.name}</h1>
+                </div>
                 <div className='flex gap-3 relative'>
                     <div id='income_expense_form' className='absolute bg-gray-50 w-full h-full justify-center items-center shadow-md border-2 hidden border-sky-500'>
                         <form action="" className='flex gap-2 p-3 w-full' onSubmit={handleIncome}  >
@@ -118,7 +125,7 @@ export default function Category() {
                     </div>
                     <div className='border p-5 grow'>
                         <div className='flex '>
-                            <h3 className='text-sm font-semibold border text-center '>                             <button onClick={() => handleClick(event, 'income')}>+Income </button>
+                            <h3 className='text-sm font-semibold border text-center '>                             <button onClick={() => handleClick(event, 'income')} className='p-1 font-semibold text-sm bg-green-500 text-white rounded-none shadow-sm'>+Income </button>
                             </h3>
 
                         </div>
@@ -132,8 +139,8 @@ export default function Category() {
                     </div>
                     <div className='border p-5 grow'>
                         <div className='flex'>
-                            <h3 className='text-sm font-semibold border text-center'>Expense  </h3>
-                            <button onClick={() => handleClick(event, 'expence')}>+</button>
+                            <h3 className='text-sm font-semibold border text-center'> <button onClick={() => handleClick(event, 'expence')} className='p-1 font-semibold text-sm bg-red-500 text-white rounded-none shadow-sm'> - Expense</button>  </h3>
+
 
                         </div>
                         {catExpense.map((expense) => (
