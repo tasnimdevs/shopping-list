@@ -9,7 +9,7 @@ export default function cat() {
     const [thisCategory, setThisCategory] = useState(categories && categories.find(item => item.id === categoryId));
     const [trTitle, setTrTitle] = useState('');
     const [trAmount, setTrAmount] = useState('');
-
+    const [balance, setBalance] = useState('');
     const [insertType, setInsertType] = useState('');
     const incomeExpenseForm = document.getElementById('incomeExpenseForm');
 
@@ -17,6 +17,8 @@ export default function cat() {
         Remaining issues:
         1. Form opening after double click 
     */
+
+
 
 
     function handleClick(event, type) {
@@ -56,11 +58,16 @@ export default function cat() {
         incomeExpenseForm.classList.add('hidden');
     }
 
+    function handleBalanceUpdate(newValue) {
+        setBalance(newValue);
+    }
+
     return (
-        <div className="w-1/2 m-auto h-screen flex items-center">
+        <div className="w-4/5 m-auto h-screen flex items-center">
             <div className="p-5 border w-full">
                 <div className='flex justify-between items-center'>
                     <Link to="/categories" className='border px-3 py-1 bg-gray-100 hover:bg-gray-200'>Categories</Link>
+                    <h3>Total Balance: {balance}</h3>
                     <h1 className="text-center text-lg font-bold mb-5">{thisCategory.name}</h1>
                 </div>
                 <div className='flex gap-3 relative'>
@@ -78,10 +85,11 @@ export default function cat() {
                         />
                     </div>
 
-                    <Inc_ExpList 
-                    handleClick={handleClick}
-                    thisCategory={thisCategory}
-                    setThisCategory={setThisCategory}
+                    <Inc_ExpList
+                        getTotalBalance={handleBalanceUpdate}
+                        handleClick={handleClick}
+                        thisCategory={thisCategory}
+                        setThisCategory={setThisCategory}
                     />
                 </div>
             </div>

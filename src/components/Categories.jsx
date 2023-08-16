@@ -62,7 +62,7 @@ export default function Categories() {
 
   return (
     <>
-      <div className="w-1/2 m-auto h-screen flex items-center">
+      <div className="w-4/5 m-auto h-screen flex items-center">
         <div className="p-5 border w-full">
           <h1 className="text-center text-lg font-bold mb-5">Category</h1>
           <form onSubmit={handleSubmit} >
