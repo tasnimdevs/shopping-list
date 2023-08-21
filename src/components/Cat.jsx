@@ -57,11 +57,11 @@ export default function cat() {
 
         incomeExpenseForm.classList.add('hidden');
     }
+    // console.log(thisCategory.name);
 
     function handleBalanceUpdate(newValue) {
         setBalance(newValue);
     }
-
     return (
         <div className="w-4/5 m-auto h-screen flex items-center">
             <div className="p-5 border w-full">
@@ -70,6 +70,7 @@ export default function cat() {
                     <h3>Total Balance: {balance}</h3>
                     <h1 className="text-center text-lg font-bold mb-5">{thisCategory.name}</h1>
                 </div>
+
                 <div className='flex gap-3 relative'>
                     <div id='incomeExpenseForm' className='absolute bg-gray-50 w-full h-full 
                         justify-center items-center shadow-md border-2 hidden border-sky-500'>
@@ -83,6 +84,8 @@ export default function cat() {
                             trAmount={trAmount}
                             setTrAmount={setTrAmount}
                         />
+
+
                     </div>
 
                     <Inc_ExpList
